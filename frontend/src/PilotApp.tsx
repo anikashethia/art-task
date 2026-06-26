@@ -34,10 +34,11 @@ export default function PilotApp() {
       const pid = getProlificPid();
       const params = new URLSearchParams(window.location.search);
       const sc_session_id = params.get("sc_session_id") ?? undefined;
+      const mode = (params.get("mode") === "full" ? "full" : "pilot") as "pilot" | "full";
 
       const s = await createSession({
         participant_id: pid,
-        mode: "pilot",
+        mode,
         friendly_pair:         params.get("friendly") ?? undefined,
         neutral_pair:          params.get("neutral") ?? undefined,
         friendly_control_pair: params.get("friendly_control") ?? undefined,
@@ -50,7 +51,7 @@ export default function PilotApp() {
         ctx: {
           sessionId: s.session_id,
           token: s.session_token,
-          mode: "pilot",
+          mode,
           trials: s.trials,
         },
       });

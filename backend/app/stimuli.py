@@ -69,6 +69,7 @@ def build_trials(
     participant_index: int,
     pairs: dict[str, tuple[str, str]] | None = None,
     seed: int | None = None,
+    trial_limit: int | None = None,
 ) -> list[dict]:
     if pairs is None:
         pairs = DEFAULT_PAIRS
@@ -76,9 +77,18 @@ def build_trials(
     assignment = assign_artworks_to_conditions(participant_index)
     ratings = load_agent_ratings()
 
+    # For pilot mode: take an equal number from each condition so all
+    # conditions are represented, using a stable per-condition shuffle.
+    per_condition: int | None = None
+    if trial_limit is not None:
+        per_condition = trial_limit // N_CONDITIONS
+
     trials = []
     for condition, artworks in assignment.items():
         agent1, agent2 = pairs.get(condition, DEFAULT_PAIRS[condition])
+        if per_condition is not None:
+            condition_rng = random.Random((seed if seed is not None else participant_index) + hash(condition))
+            artworks = condition_rng.sample(artworks, min(per_condition, len(artworks)))
         for artwork in artworks:
             r1 = get_agent_rating(agent1, artwork["id"], ratings)
             r2 = get_agent_rating(agent2, artwork["id"], ratings)

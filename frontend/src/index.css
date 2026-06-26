@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Breathing space above/below jsPsych content */
+.jspsych-display-element {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Fixed-width content container so screens don't reflow as content changes */
+.jspsych-content {
+  width: 42rem;
+  max-width: 95%;
+  position: relative;
+}
+
+/* Action buttons (Begin / Submit / Continue / Finish) — solid black */
+.jspsych-btn {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.jspsych-btn:hover {
+  background: #333;
+  border-color: #333;
+}
+.jspsych-btn:disabled {
+  background: #d1d5db;
+  border-color: #d1d5db;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* Instruction screens — inverted colors (black bg / white text) so
+ * participants visually distinguish instruction screens from the task.
+ * Applied via document.body.classList.add('instructions-mode') in
+ * the instructions trial's on_load, removed on_finish. */
+body.instructions-mode {
+  background: #000;
+}
+body.instructions-mode .jspsych-display-element,
+body.instructions-mode .jspsych-content,
+body.instructions-mode .jspsych-content * {
+  color: #fff !important;
+}
+body.instructions-mode .jspsych-btn {
+  background: #fff;
+  color: #000 !important;
+  border: 1px solid #fff;
+}
+body.instructions-mode .jspsych-btn:hover {
+  background: #e5e5e5;
+}

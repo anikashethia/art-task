@@ -27,7 +27,7 @@ async function json<T>(res: Response): Promise<T> {
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type Mode = "pilot" | "dev";
+export type Mode = "pilot" | "full" | "dev";
 
 export type Trial = {
   artwork_id: number;

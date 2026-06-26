@@ -18,6 +18,6 @@ const mode = new URLSearchParams(window.location.search).get("mode");
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {mode === "pilot" ? <PilotApp /> : <App />}
+    {mode === "pilot" || mode === "full" ? <PilotApp /> : <App />}
   </StrictMode>,
 );

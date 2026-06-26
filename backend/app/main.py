@@ -78,7 +78,7 @@ def require_session_token(
 
 class CreateSessionBody(BaseModel):
     participant_id: str
-    mode: Literal["pilot", "dev"] = "dev"
+    mode: Literal["pilot", "full", "dev"] = "dev"
     friendly_pair: str | None = None
     neutral_pair: str | None = None
     friendly_control_pair: str | None = None
@@ -146,10 +146,12 @@ def health():
 
 @app.post("/sessions", response_model=CreateSessionResponse)
 def create_session(body: CreateSessionBody, db: DBSession = Depends(get_db)):
-    if body.mode == "pilot":
+    if body.mode in ("pilot", "full"):
         participant_index = assign_participant_index(db)
     else:
         participant_index = 0
+
+    trial_limit = 12 if body.mode == "pilot" else None
 
     def parse_pair(s: str | None, default: tuple) -> tuple[str, str]:
         if s:
@@ -166,7 +168,7 @@ def create_session(body: CreateSessionBody, db: DBSession = Depends(get_db)):
         "neutral_control":  parse_pair(body.neutral_control_pair,  DEFAULT_PAIRS["neutral_control"]),
     }
 
-    trials = build_trials(participant_index, pairs)
+    trials = build_trials(participant_index, pairs, trial_limit=trial_limit)
 
     session = models.Session(
         participant_id=body.participant_id,

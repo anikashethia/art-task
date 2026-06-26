@@ -302,8 +302,10 @@ export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
       </div>
     `,
     choices: ["Begin"],
+    on_load: () => document.body.classList.add("instructions-mode"),
     on_start: () => logEvent(ctx, "instructions_shown"),
     on_finish: () => {
+      document.body.classList.remove("instructions-mode");
       logEvent(ctx, "instructions_dismissed");
       logEvent(ctx, "task_start");
     },
