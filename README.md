@@ -1,4 +1,4 @@
-# Social Influence Task
+# Art Task
 
 Artwork rating task measuring social influence susceptibility. Participants
 rate each artwork, see the average rating of two named agents, then re-rate.
