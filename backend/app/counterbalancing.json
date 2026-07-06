@@ -1,914 +1,1322 @@
 [
   {
-    "rotation": 0,
-    "friendly": [
-      "r1m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r4f2"
-    ]
+    "friendly_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 1
   },
   {
-    "rotation": 1,
-    "friendly": [
-      "r1m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r4f1"
-    ]
+    "friendly_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 2
   },
   {
-    "rotation": 2,
-    "friendly": [
-      "r1m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r3f2"
-    ]
+    "friendly_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 3
   },
   {
-    "rotation": 3,
-    "friendly": [
-      "r1m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r3f1"
-    ]
+    "friendly_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 4
   },
   {
-    "rotation": 4,
-    "friendly": [
-      "r1m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r4f2"
-    ]
+    "friendly_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 5
   },
   {
-    "rotation": 5,
-    "friendly": [
-      "r1m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r4f1"
-    ]
+    "friendly_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 6
   },
   {
-    "rotation": 6,
-    "friendly": [
-      "r1m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r2f2"
-    ]
+    "friendly_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 7
   },
   {
-    "rotation": 7,
-    "friendly": [
-      "r1m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r2f1"
-    ]
+    "friendly_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 8
   },
   {
-    "rotation": 8,
-    "friendly": [
-      "r1m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r3f2"
-    ]
+    "friendly_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 9
   },
   {
-    "rotation": 9,
-    "friendly": [
-      "r1m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r3f1"
-    ]
+    "friendly_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 10
   },
   {
-    "rotation": 10,
-    "friendly": [
-      "r1m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r1m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r2f2"
-    ]
+    "friendly_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 11
   },
   {
-    "rotation": 11,
-    "friendly": [
-      "r1m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r1m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r2f1"
-    ]
+    "friendly_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 12
   },
   {
-    "rotation": 12,
-    "friendly": [
-      "r2m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r4f2"
-    ]
+    "friendly_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 13
   },
   {
-    "rotation": 13,
-    "friendly": [
-      "r2m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r4f1"
-    ]
+    "friendly_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 14
   },
   {
-    "rotation": 14,
-    "friendly": [
-      "r2m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r3f2"
-    ]
+    "friendly_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 15
   },
   {
-    "rotation": 15,
-    "friendly": [
-      "r2m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r3f1"
-    ]
+    "friendly_male": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 16
   },
   {
-    "rotation": 16,
-    "friendly": [
-      "r2m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r4f2"
-    ]
+    "friendly_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 17
   },
   {
-    "rotation": 17,
-    "friendly": [
-      "r2m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r4f1"
-    ]
+    "friendly_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 18
   },
   {
-    "rotation": 18,
-    "friendly": [
-      "r2m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r1f2"
-    ]
+    "friendly_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 19
   },
   {
-    "rotation": 19,
-    "friendly": [
-      "r2m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r1f1"
-    ]
+    "friendly_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 20
   },
   {
-    "rotation": 20,
-    "friendly": [
-      "r2m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r3f2"
-    ]
+    "friendly_male": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f"
+    },
+    "config": 21
   },
   {
-    "rotation": 21,
-    "friendly": [
-      "r2m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r3f1"
-    ]
+    "friendly_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Logan",
+      "id": "r2_m_logan",
+      "race": "r2",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Charlie",
+      "id": "r2_m_charlie",
+      "race": "r2",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Taylor",
+      "id": "r3_f_taylor",
+      "race": "r3",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Morgan",
+      "id": "r3_f_morgan",
+      "race": "r3",
+      "gender": "f"
+    },
+    "config": 22
   },
   {
-    "rotation": 22,
-    "friendly": [
-      "r2m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r2m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r1f2"
-    ]
+    "friendly_male": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Reese",
+      "id": "r1_f_reese",
+      "race": "r1",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Quinn",
+      "id": "r1_f_quinn",
+      "race": "r1",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Blake",
+      "id": "r4_m_blake",
+      "race": "r4",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Cameron",
+      "id": "r4_m_cameron",
+      "race": "r4",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "config": 23
   },
   {
-    "rotation": 23,
-    "friendly": [
-      "r2m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r2m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r1f1"
-    ]
-  },
-  {
-    "rotation": 24,
-    "friendly": [
-      "r3m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r4f2"
-    ]
-  },
-  {
-    "rotation": 25,
-    "friendly": [
-      "r3m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r4f1"
-    ]
-  },
-  {
-    "rotation": 26,
-    "friendly": [
-      "r3m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r2f2"
-    ]
-  },
-  {
-    "rotation": 27,
-    "friendly": [
-      "r3m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r2f1"
-    ]
-  },
-  {
-    "rotation": 28,
-    "friendly": [
-      "r3m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r4f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r4f2"
-    ]
-  },
-  {
-    "rotation": 29,
-    "friendly": [
-      "r3m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r4f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r4f1"
-    ]
-  },
-  {
-    "rotation": 30,
-    "friendly": [
-      "r3m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r4m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r4m2",
-      "r1f2"
-    ]
-  },
-  {
-    "rotation": 31,
-    "friendly": [
-      "r3m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r4m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r4m1",
-      "r1f1"
-    ]
-  },
-  {
-    "rotation": 32,
-    "friendly": [
-      "r3m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r2f2"
-    ]
-  },
-  {
-    "rotation": 33,
-    "friendly": [
-      "r3m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r2f1"
-    ]
-  },
-  {
-    "rotation": 34,
-    "friendly": [
-      "r3m1",
-      "r4f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r3m2",
-      "r4f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r1f2"
-    ]
-  },
-  {
-    "rotation": 35,
-    "friendly": [
-      "r3m2",
-      "r4f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r3m1",
-      "r4f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r1f1"
-    ]
-  },
-  {
-    "rotation": 36,
-    "friendly": [
-      "r4m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r3f2"
-    ]
-  },
-  {
-    "rotation": 37,
-    "friendly": [
-      "r4m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r3f1"
-    ]
-  },
-  {
-    "rotation": 38,
-    "friendly": [
-      "r4m1",
-      "r1f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r1f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r2f2"
-    ]
-  },
-  {
-    "rotation": 39,
-    "friendly": [
-      "r4m2",
-      "r1f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r1f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r2f1"
-    ]
-  },
-  {
-    "rotation": 40,
-    "friendly": [
-      "r4m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r3f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r3f2"
-    ]
-  },
-  {
-    "rotation": 41,
-    "friendly": [
-      "r4m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r3f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r3f1"
-    ]
-  },
-  {
-    "rotation": 42,
-    "friendly": [
-      "r4m1",
-      "r2f1"
-    ],
-    "neutral": [
-      "r3m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r2f2"
-    ],
-    "neutral_control": [
-      "r3m2",
-      "r1f2"
-    ]
-  },
-  {
-    "rotation": 43,
-    "friendly": [
-      "r4m2",
-      "r2f2"
-    ],
-    "neutral": [
-      "r3m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r2f1"
-    ],
-    "neutral_control": [
-      "r3m1",
-      "r1f1"
-    ]
-  },
-  {
-    "rotation": 44,
-    "friendly": [
-      "r4m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r1m1",
-      "r2f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r1m2",
-      "r2f2"
-    ]
-  },
-  {
-    "rotation": 45,
-    "friendly": [
-      "r4m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r1m2",
-      "r2f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r1m1",
-      "r2f1"
-    ]
-  },
-  {
-    "rotation": 46,
-    "friendly": [
-      "r4m1",
-      "r3f1"
-    ],
-    "neutral": [
-      "r2m1",
-      "r1f1"
-    ],
-    "friendly_control": [
-      "r4m2",
-      "r3f2"
-    ],
-    "neutral_control": [
-      "r2m2",
-      "r1f2"
-    ]
-  },
-  {
-    "rotation": 47,
-    "friendly": [
-      "r4m2",
-      "r3f2"
-    ],
-    "neutral": [
-      "r2m2",
-      "r1f2"
-    ],
-    "friendly_control": [
-      "r4m1",
-      "r3f1"
-    ],
-    "neutral_control": [
-      "r2m1",
-      "r1f1"
-    ]
+    "friendly_male": {
+      "name": "Alex",
+      "id": "r1_m_alex",
+      "race": "r1",
+      "gender": "m",
+      "condition": "friendly"
+    },
+    "friendly_male_control": {
+      "name": "Jordan",
+      "id": "r1_m_jordan",
+      "race": "r1",
+      "gender": "m"
+    },
+    "friendly_female": {
+      "name": "Jamie",
+      "id": "r2_f_jamie",
+      "race": "r2",
+      "gender": "f",
+      "condition": "friendly"
+    },
+    "friendly_female_control": {
+      "name": "Parker",
+      "id": "r2_f_parker",
+      "race": "r2",
+      "gender": "f"
+    },
+    "neutral_male": {
+      "name": "Casey",
+      "id": "r3_m_casey",
+      "race": "r3",
+      "gender": "m",
+      "condition": "neutral"
+    },
+    "neutral_male_control": {
+      "name": "Elliot",
+      "id": "r3_m_elliot",
+      "race": "r3",
+      "gender": "m"
+    },
+    "neutral_female": {
+      "name": "Rowan",
+      "id": "r4_f_rowan",
+      "race": "r4",
+      "gender": "f",
+      "condition": "neutral"
+    },
+    "neutral_female_control": {
+      "name": "Sam",
+      "id": "r4_f_sam",
+      "race": "r4",
+      "gender": "f"
+    },
+    "config": 24
   }
 ]

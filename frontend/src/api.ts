@@ -27,7 +27,7 @@ async function json<T>(res: Response): Promise<T> {
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type Mode = "pilot" | "full" | "dev";
+export type Mode = "test" | "full" | "dev";
 
 export type Trial = {
   artwork_id: number;
@@ -59,10 +59,9 @@ export type CreateSessionResponse = {
 export async function createSession(body: {
   participant_id: string;
   mode: Mode;
+  participant_number?: number;
   friendly_pair?: string;
   neutral_pair?: string;
-  friendly_control_pair?: string;
-  neutral_control_pair?: string;
   sc_session_id?: string;
 }): Promise<CreateSessionResponse> {
   const result = await json<CreateSessionResponse>(

@@ -1,239 +1,196 @@
 # Art Task
 
-Artwork rating task measuring social influence susceptibility. Participants
-rate each artwork, see the average rating of two named agents, then re-rate.
-Influence is operationalized as the shift toward the agents' average rating,
-normalised by the maximum possible shift.
+Artwork rating task measuring susceptibility to social influence. Participants rate each artwork, see the average rating of two named agents, then re-rate. Influence is operationalised as the shift toward the agents' average, normalised by the maximum possible shift.
 
-Runs **after** the social connection task in the same lab session, with agent
-identities and pair assignments passed via URL parameters.
+Runs **after** the chat task in the same lab session. Part of the Social Connection study (Mobbs Lab, Caltech).
 
-## Structure
+- **Live app:** https://test-social-influence-task.fly.dev
+- **Deployment:** Fly.io (`test-social-influence-task`, org `mobbs-lab`)
+- **Stack:** React 19 / jsPsych 8 / Vite / TypeScript frontend · FastAPI + SQLAlchemy + SQLite backend
 
-```
-social-influence-task/
-├── backend/
-│   ├── app/
-│   │   ├── main.py          # FastAPI routes
-│   │   ├── models.py        # SQLAlchemy models (Session, Block, Rating, Event)
-│   │   ├── db.py            # DB engine / session
-│   │   ├── stimuli.py       # Artwork loading & artwork-condition assignment
-│   │   ├── pilot.py         # Participant counter (persistent)
-│   │   └── stimuli/
-│   │       ├── artworks.json       # 50 artwork stimulus definitions
-│   │       └── agent_ratings.json  # Pre-generated agent ratings per artwork (add before running)
-│   ├── pyproject.toml
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── main.tsx          # Entry point — routes to PilotApp or dev App
-│   │   ├── App.tsx           # Dev landing screen
-│   │   ├── PilotApp.tsx      # Prolific participant orchestrator
-│   │   ├── timeline.ts       # jsPsych timeline (Phase 1 + Phase 2)
-│   │   ├── api.ts            # API client
-│   │   └── components/
-│   │       └── TimelineRunner.tsx
-│   ├── index.html
-│   └── package.json
-└── scripts/
-    └── csv_to_artworks.py    # Convert stimulus CSV → artworks.json
-```
+---
 
 ## Task Design
 
-**Trial structure** (per artwork, ~14 s average):
-1. **Initial rating** — participant rates artwork on 0–100 slider (self-paced, 10 s cap)
-2. **Feedback reveal** — average rating of two named agents shown for 4 s
-3. **Re-rating** — participant re-rates the same artwork (self-paced, 10 s cap)
-4. **Blank screen** — 500 ms between trials
+**Trial structure** (per artwork, self-paced):
+1. **Initial rating** — participant rates artwork on 0–100 slider; Submit locked until slider is moved
+2. **Feedback reveal** — artwork shown with two agent avatars and their average rating (5 s auto-advance)
+3. **Re-rating** — participant re-rates; Submit locked until slider is moved or clicked
+4. **Blank ITI** — 500 ms
 
-If the participant does not respond within 10 s, an "Out of time" screen
-appears for 2 s and the trial advances without recording a rating.
-
-**4 pair-conditions** (each consisting of 2 named agents):
+**4 pair-conditions** (30 artworks each, 120 total):
 
 | Condition | Agents |
 |---|---|
-| `friendly` | The 2 agents the participant felt connected to |
-| `neutral` | The 2 agents the participant felt neutral toward |
-| `friendly_control` | Gender/race-matched controls for the friendly pair |
-| `neutral_control` | Gender/race-matched controls for the neutral pair |
+| `friendly` | The 2 agents the participant chatted with in the friendly condition |
+| `neutral` | The 2 agents the participant chatted with in the neutral condition |
+| `friendly_control` | Same race + gender, never chatted with — matched to friendly pair |
+| `neutral_control` | Same race + gender, never chatted with — matched to neutral pair |
 
-**Counterbalancing**
-- Each artwork appears in exactly one condition per participant
-- Condition assignment: `(artwork_id − 1 + participant_index) mod 4`
-- Every 4 participants = 1 complete rotation
-- Designed for multiples of 4 artworks (e.g. 120 → 30 per condition)
+Conditions are **interspersed** (randomly shuffled across the 120 trials).
 
-**Influence score (computed at analysis time)**
+**Counterbalancing (24 configs)**
+
+Each config assigns one of the 16 named avatars (4 races × 2 genders × 2 exemplars) to each of 4 roles: friendly-male, friendly-female, neutral-male, neutral-female. All 4 are different races. Controls are the other exemplar of the same race and gender.
+
+- 24 configs = 4! permutations of {r1, r2, r3, r4} across the 4 roles
+- Every avatar appears as a social agent in exactly 6/24 configs and as a control in exactly 6/24
+- Config is selected by participant number (1–24); cycles for larger samples
+
+**Influence score** (computed at analysis time):
 ```
 Δ = rerate − initial_rating
 normalised_influence = Δ / |avg_agent_rating − initial_rating|
 ```
-Values: 0 = no influence, 1 = full conformity, negative = contrast/reactance.
+0 = no influence, 1 = full conformity, negative = contrast. NULL when initial rating equals agent average.
 
-**Estimated duration:** ~30 min for 120 artworks (range 20–40 min depending on pace).
+---
 
-## Setup
+## Avatars
 
-### Backend
+16 named avatars — balanced 4 races × 2 genders × 2 exemplars:
 
+| | Female | Male |
+|---|---|---|
+| **r1 — white** | quinn, reese | alex, jordan |
+| **r2 — east Asian** | jamie, parker | charlie, logan |
+| **r3 — S. Asian / Hispanic** | morgan, taylor | casey, elliot |
+| **r4 — black** | rowan, sam | blake, cameron |
+
+Images live in `frontend/public/avatars/{id}.png` (e.g. `r1_m_alex.png`) and are served at `/avatars/{id}.png`.
+
+---
+
+## Running Locally
+
+**Backend** (port 8001):
 ```bash
 cd backend
 cp .env.example .env
-# Edit .env: add PROLIFIC_COMPLETION_URL
-uv run fastapi dev
+uv run uvicorn app.main:app --reload --port 8001
 ```
 
-### Frontend
-
+**Frontend** (port 5174):
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend runs on http://localhost:5174 (to avoid port conflict with social
-connection task on 5173).
+Open **http://localhost:5174** — the landing page has Test / Full study mode and In-person / Online start buttons.
 
-## Before Running Participants
+Port 5174 avoids conflict with the chat task on 5173.
 
-### 1. Populate artworks.json
+---
 
-Use the conversion script to generate artworks.json from the stimulus CSV:
+## Modes
+
+| Mode | Trials | Use |
+|---|---|---|
+| `test` | 12 (3 per condition) | Setup, piloting, researcher checks |
+| `full` | 120 (30 per condition) | Real data collection |
+
+Mode is selected on the landing page and does not affect trial structure — only trial count.
+
+---
+
+## Entry Points
+
+**Landing page** (`/`) — shown when no `PROLIFIC_PID` in the URL. Researcher selects Test/Full mode and enters participant number (1–24) for in-person or online launch.
+
+**Prolific / online** (`/?PROLIFIC_PID=...`) — detected automatically; goes straight into the task using the auto-incremented participant index for counterbalancing.
+
+Prolific study URL format:
+```
+https://test-social-influence-task.fly.dev/?PROLIFIC_PID={{%PROLIFIC_PID%}}
+```
+
+---
+
+## Deployment
 
 ```bash
-python scripts/csv_to_artworks.py path/to/stimulus_list.csv --n 50 --out backend/app/stimuli/artworks.json
+fly deploy --app test-social-influence-task
 ```
 
-Arguments:
-- `csv_path` (positional): path to the stimulus CSV
-- `--n`: number of artworks to include (default: 50)
-- `--out`: output JSON path (default: `backend/app/stimuli/artworks.json`)
+SQLite DB persists on a Fly volume (`/data/social_influence.db`). **Never scale to more than one machine** — each machine gets its own volume.
 
-The CSV should have columns: ID, Title, Artist, Year, Medium,
-Style / Movement, WikiArt URL, Valence Category, Familiarity Risk.
+---
 
-### 2. Add agent_ratings.json
-
-Create `backend/app/stimuli/agent_ratings.json` with pre-generated agent
-ratings for each artwork. Format:
-
-```json
-{
-  "Alex":   {"1": 72, "2": 45, "3": 68, ...},
-  "Sam":    {"1": 60, "2": 38, "3": 55, ...},
-  "Casey":  {"1": 65, "2": 50, "3": 60, ...},
-  "Jordan": {"1": 58, "2": 42, "3": 52, ...},
-  "Morgan": {"1": 70, "2": 48, "3": 62, ...},
-  "Riley":  {"1": 55, "2": 40, "3": 58, ...}
-}
-```
-
-RNG ratings are generated at runtime from fixed seeds — no entry needed.
-Without this file, the backend uses deterministic placeholder ratings.
-
-### 3. Image Hosting
-
-Download images from WikiArt and host them. Options:
-- **Local**: place in `frontend/public/artworks/1.jpg` and set
-  `image_url` to `/artworks/1.jpg`
-- **CDN**: upload to S3, Cloudflare R2, or similar and use full URL
-- **Dev testing**: leave `image_url` blank — the frontend shows a placeholder
-
-## Prolific Study URL
+## Repository Structure
 
 ```
-https://yourstudy.com/?mode=pilot
-  &PROLIFIC_PID={{%PROLIFIC_PID%}}
-  &friendly=Alex,Sam
-  &neutral=Casey,Jordan
-  &friendly_control=Morgan,Riley
-  &neutral_control=Taylor,Drew
-  &sc_session_id=<id>
+art-task/
+├── backend/
+│   └── app/
+│       ├── main.py                  # FastAPI routes
+│       ├── models.py                # ORM: Session, Block, Rating, Event
+│       ├── db.py                    # DB engine / session factory
+│       ├── stimuli.py               # Trial builder, counterbalancing lookup
+│       ├── pilot.py                 # Participant index counter
+│       ├── counterbalancing.json    # 24-config avatar assignment table
+│       └── stimuli/
+│           ├── artworks.json        # 120 artwork definitions + image URLs
+│           └── agent_ratings.json   # Pre-generated agent ratings (optional)
+├── frontend/
+│   └── src/
+│       ├── main.tsx                 # Entry: routes to LandingFlow or PilotApp
+│       ├── LandingFlow.tsx          # Researcher landing page
+│       ├── PilotApp.tsx             # Prolific / online flow
+│       ├── timeline.ts              # jsPsych trial sequence
+│       ├── api.ts                   # API client
+│       └── components/
+│           └── TimelineRunner.tsx
+│   └── public/
+│       └── avatars/                 # 16 avatar PNGs (r{race}_{gender}_{name}.png)
+└── Dockerfile
 ```
 
-- `friendly` / `neutral`: comma-separated pair of agent names the participant
-  interacted with in the social connection task (friendly and neutral conditions).
-- `friendly_control` / `neutral_control`: gender/race-matched control pairs.
-- `sc_session_id`: session ID from the social connection task for cross-task linkage.
+---
 
-All pair parameters fall back to defaults if omitted (useful for dev testing).
+## Data Schema
 
-## Behavioral Outputs
-
-All data is stored in SQLite (`social_influence.db`). The file is gitignored
-and created fresh on first backend startup.
-
-### Tables
-
-**`sessions`** — one row per participant visit
+**`sessions`**
 
 | Column | Description |
 |---|---|
-| `participant_id` | Prolific PID (or `DEV_USER` in dev mode) |
-| `mode` | `pilot` or `dev` |
-| `condition_order` | `si_p{index}` — which counterbalancing rotation |
-| `identity_order` | JSON object mapping condition → [agent1, agent2] for all 4 pairs |
-| `sc_session_id` | Session ID from the social connection task (cross-task linkage) |
-| `started_at` | UTC timestamp when session was created |
-| `ended_at` | UTC timestamp when `completeSession` was called (null if incomplete) |
-
-**`blocks`** — one row per session (single block, phase=1)
+| `participant_id` | Prolific PID or `P{n}` for in-person |
+| `mode` | `test` or `full` |
+| `condition_order` | `si_p{index}` |
+| `identity_order` | JSON: condition → [agent1_id, agent2_id] for all 4 pairs |
+| `sc_session_id` | Chat task session ID for cross-task linkage (when available) |
 
 **`ratings`** — two rows per artwork per participant
 
-| Column | Initial rating | Re-rating |
+| Column | Initial | Re-rating |
 |---|---|---|
 | `rating_type` | `"initial"` | `"rerate"` |
-| `artwork_id` | ✓ | ✓ |
 | `rating` | participant's rating | participant's re-rating |
 | `pair_condition` | null | `friendly` / `neutral` / `friendly_control` / `neutral_control` |
-| `agent1_condition` | null | name of first agent in pair |
-| `agent2_condition` | null | name of second agent in pair |
-| `agent1_rating` | null | first agent's pre-set rating for this artwork |
-| `agent2_rating` | null | second agent's pre-set rating for this artwork |
-| `avg_rating` | null | average of agent1 and agent2 ratings (shown to participant) |
-| `artwork_onset_ms` | ms since session start when screen appeared | same |
-| `rating_rt_ms` | reaction time from screen onset to submission | same |
-| `trial_index` | position in the randomised trial order | same |
+| `agent1_condition` | null | agent 1 avatar ID |
+| `agent2_condition` | null | agent 2 avatar ID |
+| `avg_rating` | null | average shown to participant |
+| `rating_rt_ms` | RT from screen onset to submit | same |
+| `trial_index` | position in randomised order | same |
 
-**`events`** — full timestamped jsPsych event log
-
-| Event type | When fired |
-|---|---|
-| `instructions_shown` / `instructions_dismissed` | instruction screen |
-| `task_start` | Begin clicked |
-| `initial_rating_onset` | initial rating screen appears |
-| `initial_rating_response` | initial rating submitted |
-| `initial_rating_missed` | 10 s cap reached without response |
-| `reveal_onset` / `reveal_end` | feedback screen start/end |
-| `rerate_response` | re-rating submitted |
-| `rerate_missed` | 10 s cap reached without response |
-| `task_end` / `timeline_complete` | end screen |
-
-### Core analysis query
-
+**Core analysis query:**
 ```sql
 SELECT
   s.participant_id,
-  s.sc_session_id,
-  s.condition_order,
+  s.identity_order,
   i.artwork_id,
   i.trial_index,
-  i.rating                                          AS initial_rating,
-  i.rating_rt_ms                                    AS initial_rt_ms,
-  r.rating                                          AS rerate,
-  r.rating_rt_ms                                    AS rerate_rt_ms,
+  i.rating                                        AS initial_rating,
+  i.rating_rt_ms                                  AS initial_rt_ms,
+  r.rating                                        AS rerate,
+  r.rating_rt_ms                                  AS rerate_rt_ms,
   r.pair_condition,
   r.agent1_condition,
   r.agent2_condition,
-  r.agent1_rating,
-  r.agent2_rating,
   r.avg_rating,
-  (r.rating - i.rating)                             AS delta,
+  (r.rating - i.rating)                           AS delta,
   (r.rating - i.rating)
-    / NULLIF(ABS(r.avg_rating - i.rating), 0)       AS norm_influence
+    / NULLIF(ABS(r.avg_rating - i.rating), 0)     AS norm_influence
 FROM ratings i
 JOIN ratings r  ON i.block_id = r.block_id
                 AND i.artwork_id = r.artwork_id
@@ -243,6 +200,3 @@ JOIN blocks b   ON i.block_id = b.id
 JOIN sessions s ON b.session_id = s.id
 ORDER BY s.participant_id, i.trial_index;
 ```
-
-`norm_influence` is NULL when the participant's initial rating exactly matches
-the average shown (no room to move), and should be excluded from analysis.

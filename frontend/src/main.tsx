@@ -1,23 +1,17 @@
-/**
- * Entry point — routes to PilotApp (Prolific) or dev App based on ?mode=pilot.
- *
- * Prolific study URL:
- *   https://yourstudy.com/?mode=pilot&PROLIFIC_PID={{%PROLIFIC_PID%}}&identities=Alex,Sam,Casey,Jordan
- *
- * Dev URL:
- *   http://localhost:5174/
- */
-
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import LandingFlow from "./LandingFlow";
 import PilotApp from "./PilotApp";
 
-const mode = new URLSearchParams(window.location.search).get("mode");
+// If launched from a Prolific URL (has PROLIFIC_PID), go straight to the
+// online flow (no landing page, avatar codes come from URL params).
+// Otherwise show the landing page for in-person / researcher use.
+const params = new URLSearchParams(window.location.search);
+const hasProlificPid = params.has("PROLIFIC_PID") || params.has("prolific_pid");
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {mode === "pilot" || mode === "full" ? <PilotApp /> : <App />}
+    {hasProlificPid ? <PilotApp /> : <LandingFlow />}
   </StrictMode>,
 );

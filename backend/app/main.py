@@ -28,7 +28,7 @@ load_dotenv()
 
 from .db import Base, engine, get_db
 from . import models
-from .stimuli import build_trials, DEFAULT_PAIRS, get_control_avatar, get_pairs_for_rotation
+from .stimuli import build_trials, DEFAULT_PAIRS, get_pairs_for_config
 from .pilot import assign_participant_index, ParticipantCounter
 
 
@@ -80,9 +80,8 @@ def require_session_token(
 
 class CreateSessionBody(BaseModel):
     participant_id: str
-    mode: Literal["pilot", "full", "dev"] = "dev"
-    friendly_pair: str | None = None   # avatar codes e.g. "r1m1,r2f1"
-    neutral_pair: str | None = None    # controls are always auto-derived
+    mode: Literal["test", "full", "dev"] = "dev"
+    participant_number: int | None = None  # 1-24; selects counterbalancing config
     sc_session_id: str | None = None
 
 
@@ -146,36 +145,17 @@ def health():
 
 @app.post("/sessions", response_model=CreateSessionResponse)
 def create_session(body: CreateSessionBody, db: DBSession = Depends(get_db)):
-    if body.mode in ("pilot", "full"):
+    if body.mode == "full":
         participant_index = assign_participant_index(db)
     else:
         participant_index = 0
 
-    trial_limit = 12 if body.mode == "pilot" else None
+    trial_limit = 12 if body.mode == "test" else None
 
     import json as _json
 
-    def parse_pair(s: str | None) -> tuple[str, str] | None:
-        if s:
-            parts = [p.strip() for p in s.split(",") if p.strip()]
-            if len(parts) >= 2:
-                return (parts[0], parts[1])
-        return None
-
-    friendly = parse_pair(body.friendly_pair)
-    neutral  = parse_pair(body.neutral_pair)
-
-    if friendly and neutral:
-        # Pairs supplied directly (e.g. from social connection task handoff)
-        pairs = {
-            "friendly":         friendly,
-            "neutral":          neutral,
-            "friendly_control": tuple(get_control_avatar(a) for a in friendly),
-            "neutral_control":  tuple(get_control_avatar(a) for a in neutral),
-        }
-    else:
-        # Look up from counterbalancing table by participant index
-        pairs = get_pairs_for_rotation(participant_index)
+    cb_index = (body.participant_number - 1) if body.participant_number is not None else participant_index
+    pairs = get_pairs_for_config(cb_index)
 
     trials = build_trials(participant_index, pairs, trial_limit=trial_limit)
 
@@ -183,7 +163,7 @@ def create_session(body: CreateSessionBody, db: DBSession = Depends(get_db)):
         participant_id=body.participant_id,
         mode=body.mode,
         condition_order=f"si_p{participant_index}",
-        identity_order=_json.dumps({k: list(v) for k, v in pairs.items()}),
+        identity_order=_json.dumps({k: [a["id"] for a in v] for k, v in pairs.items()}),
         sc_session_id=body.sc_session_id,
         monotonic_start_s=time.monotonic(),
     )

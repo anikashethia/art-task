@@ -33,7 +33,6 @@ export type TaskContext = {
   mode: Mode;
   trials: Trial[];
   revealDurationMs?: number;
-  maxRatingMs?: number;
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -84,9 +83,9 @@ function artworkImageHtml(trial: Artwork): string {
 function avatarHtml(name: string, code: string): string {
   return `
     <div style="text-align:center;">
-      <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;
+      <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;
                   margin:0 auto 0.5rem;border:2px solid #cbd5e1;background:#e2e8f0;">
-        <img src="/avatars/${code}.jpg" alt="${name}"
+        <img src="/avatars/${code}.png" alt="${name}"
              style="width:100%;height:100%;object-fit:cover;"
              onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#94a3b8;\\'>👤</div>'">
       </div>
@@ -129,7 +128,7 @@ function addSliderValueDisplay() {
   slider.addEventListener('input', () => { display.textContent = slider.value; });
 }
 
-function addScreenOverlays(trialIndex: number, total: number, durationMs: number, showTimer = true) {
+function addScreenOverlays(trialIndex: number, total: number, durationMs = 0, showTimer = true) {
   const container = document.querySelector('.jspsych-display-element') || document.body;
 
   // Remove stale overlays from previous trial
@@ -164,22 +163,10 @@ function addScreenOverlays(trialIndex: number, total: number, durationMs: number
 
 function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
   const revealMs = ctx.revealDurationMs ?? 5000;
-  const maxRatingMs = ctx.maxRatingMs ?? 10000;
-
-  const missedStimulus = `
-    <div style="position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-      <div style="text-align:center;color:#94a3b8;">
-        <p style="font-size:1.3rem;font-weight:500;">Out of time</p>
-        <p style="font-size:0.9rem;margin-top:0.5rem;">Please try to respond before the timer runs out.</p>
-      </div>
-    </div>
-  `;
 
   return ctx.trials.flatMap((trial) => {
     let artworkOnsetMs: number | null = null;
     let rerateOnsetMs: number | null = null;
-    let initialMissed = false;
-    let rerateMissed = false;
     let initialRatingValue: number = 50;
 
     const initialRatingTrial = {
@@ -191,22 +178,15 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
       slider_start: 50,
       require_movement: true,
       button_label: "Submit",
-      trial_duration: maxRatingMs,
       on_load: () => {
         addSliderValueDisplay();
-        addScreenOverlays(trial.trial_index, ctx.trials.length, maxRatingMs);
+        addScreenOverlays(trial.trial_index, ctx.trials.length, 0, false);
       },
       on_start: () => {
         artworkOnsetMs = performance.now();
         logEvent(ctx, "initial_rating_onset", { artwork_id: trial.artwork_id, trial_index: trial.trial_index }, blockId);
       },
-      on_finish: async (data: { response: number | null; rt: number | null }) => {
-        if (data.response === null) {
-          initialMissed = true;
-          logEvent(ctx, "initial_rating_missed", { artwork_id: trial.artwork_id, trial_index: trial.trial_index }, blockId);
-          return;
-        }
-        initialMissed = false;
+      on_finish: async (data: { response: number; rt: number }) => {
         initialRatingValue = data.response;
         logEvent(ctx, "initial_rating_response", {
           artwork_id: trial.artwork_id,
@@ -260,11 +240,8 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
       min: 0,
       max: 100,
       slider_start: 50,
-      require_movement: true,
       button_label: "Submit",
-      trial_duration: maxRatingMs,
       on_load: () => {
-        // Pre-fill slider with participant's initial rating
         const slider = document.querySelector('input[type="range"]') as HTMLInputElement | null;
         if (slider) {
           slider.value = String(Math.round(initialRatingValue));
@@ -272,16 +249,27 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
           slider.dispatchEvent(new Event('change', { bubbles: true }));
         }
         addSliderValueDisplay();
-        addScreenOverlays(trial.trial_index, ctx.trials.length, maxRatingMs);
+        addScreenOverlays(trial.trial_index, ctx.trials.length, 0, false);
+
+        // Disable Submit until participant explicitly interacts with the slider
+        // (either moves it or clicks to confirm the pre-filled value)
+        const btn = document.querySelector('button.jspsych-btn') as HTMLButtonElement | null;
+        if (btn && slider) {
+          btn.disabled = true;
+          btn.style.cssText += ';opacity:0.4;cursor:not-allowed;';
+          const enable = () => {
+            btn.disabled = false;
+            btn.style.opacity = '';
+            btn.style.cursor = '';
+            slider.removeEventListener('input', enable);
+            slider.removeEventListener('mousedown', enable);
+          };
+          slider.addEventListener('input', enable);
+          slider.addEventListener('mousedown', enable);
+        }
       },
       on_start: () => { rerateOnsetMs = performance.now(); },
-      on_finish: async (data: { response: number | null; rt: number | null }) => {
-        if (data.response === null) {
-          rerateMissed = true;
-          logEvent(ctx, "rerate_missed", { artwork_id: trial.artwork_id, trial_index: trial.trial_index }, blockId);
-          return;
-        }
-        rerateMissed = false;
+      on_finish: async (data: { response: number; rt: number }) => {
         logEvent(ctx, "rerate_response", {
           artwork_id: trial.artwork_id,
           rating: data.response,
@@ -316,14 +304,7 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
       trial_duration: 500,
     };
 
-    return [
-      initialRatingTrial,
-      { timeline: [{ type: HtmlKeyboardResponse, stimulus: missedStimulus, choices: "NO_KEYS" as const, trial_duration: 2000 }], conditional_function: () => initialMissed },
-      revealTrial,
-      reratingTrial,
-      { timeline: [{ type: HtmlKeyboardResponse, stimulus: missedStimulus, choices: "NO_KEYS" as const, trial_duration: 2000 }], conditional_function: () => rerateMissed },
-      blankScreen,
-    ];
+    return [initialRatingTrial, revealTrial, reratingTrial, blankScreen];
   });
 }
 
@@ -338,7 +319,7 @@ export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
     stimulus: `
       <div style="max-width:34rem;margin:0 auto;text-align:left;">
         <h1 style="font-size:1.4rem;font-weight:600;margin-bottom:1rem;text-align:center;">
-          Artwork Rating Task
+          Art Task
         </h1>
         <p style="margin-bottom:1rem;">
           You'll see a series of artworks. For each one:
@@ -347,7 +328,6 @@ export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
           <li style="margin-bottom:0.6rem;">
             <strong>Rate</strong> how much you like it on a scale from
             <strong>0</strong> (not at all) to <strong>100</strong> (extremely).
-            You have <strong>10 seconds</strong> to respond — a timer will count down in the top-left corner.
           </li>
           <li style="margin-bottom:0.6rem;">
             You'll briefly see <strong>how someone else rated it</strong>.
