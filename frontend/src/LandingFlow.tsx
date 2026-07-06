@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import TimelineRunner from "./components/TimelineRunner";
+import EnvironmentGate from "./components/EnvironmentGate";
 import { createSession } from "./api";
 import type { TaskContext } from "./timeline";
 
@@ -9,44 +10,6 @@ type AppPhase =
   | { name: "loading" }
   | { name: "running"; ctx: TaskContext }
   | { name: "done" };
-
-function StartRow({
-  label,
-  value,
-  onChange,
-  onStart,
-  disabled,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  onStart: () => void;
-  disabled: boolean;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-4 py-4">
-      <span className="text-sm font-medium text-slate-600 w-28 shrink-0">{label}</span>
-      <div className="flex items-center gap-2 flex-1">
-        <input
-          type="number"
-          min={1}
-          max={24}
-          placeholder="1–24"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-20 border border-slate-200 rounded-lg px-3 py-2 text-sm text-center text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300"
-        />
-        <button
-          onClick={onStart}
-          disabled={disabled}
-          className="flex-1 bg-slate-900 text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          Start
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export default function LandingFlow() {
   const [phase, setPhase] = useState<AppPhase>({ name: "landing" });
@@ -83,26 +46,29 @@ export default function LandingFlow() {
 
   if (phase.name === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <p className="text-slate-400 text-sm tracking-wide">Setting up session…</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <p className="text-gray-400 text-sm">Setting up session…</p>
       </div>
     );
   }
 
   if (phase.name === "running") {
-    return <TimelineRunner ctx={phase.ctx} onComplete={handleComplete} />;
+    return (
+      <EnvironmentGate sessionId={phase.ctx.sessionId} token={phase.ctx.token}>
+        <TimelineRunner ctx={phase.ctx} onComplete={handleComplete} />
+      </EnvironmentGate>
+    );
   }
 
   if (phase.name === "done") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-10 max-w-sm w-full text-center">
-          <p className="text-2xl mb-3">✓</p>
-          <h2 className="text-lg font-semibold text-slate-800 mb-2">All done — thank you!</h2>
-          <p className="text-slate-400 text-sm">Responses have been saved.</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="max-w-xl w-full p-10 bg-white rounded-lg shadow text-center">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-2">All done — thank you!</h2>
+          <p className="text-gray-500 mb-6">Responses have been saved.</p>
           <button
             onClick={() => { setPhase({ name: "landing" }); setInPersonNum(""); setOnlineNum(""); }}
-            className="mt-8 text-xs text-slate-300 hover:text-slate-400 transition-colors"
+            className="text-xs text-gray-300 hover:text-gray-400 transition-colors"
           >
             Back to landing
           </button>
@@ -112,67 +78,102 @@ export default function LandingFlow() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-xl w-full p-10 bg-white rounded-lg shadow">
 
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-slate-800">Art Task</h1>
-        </div>
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center leading-snug">
+          Art Task
+        </h1>
 
         {/* Mode toggle */}
-        <div className="mb-6">
-          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-3">
+        <div className="mb-8 p-4 border border-gray-200 rounded">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3 text-center">
             Mode
-          </p>
-          <div className="flex rounded-lg border border-slate-200 overflow-hidden">
-            {(["test", "full"] as Mode[]).map((m) => (
-              <button
-                key={m}
-                onClick={() => setMode(m)}
-                className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
-                  mode === m
-                    ? "bg-slate-900 text-white"
-                    : "bg-white text-slate-500 hover:bg-slate-50"
-                }`}
-              >
-                {m === "test" ? "Test" : "Full study"}
-              </button>
-            ))}
           </div>
-          <p className="mt-2 text-xs text-slate-400 text-center">
+          <div className="flex gap-6 justify-center">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="timing-mode"
+                value="test"
+                checked={mode === "test"}
+                onChange={() => setMode("test")}
+                className="w-4 h-4"
+              />
+              <span className="text-base text-gray-900">Test</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="timing-mode"
+                value="full"
+                checked={mode === "full"}
+                onChange={() => setMode("full")}
+                className="w-4 h-4"
+              />
+              <span className="text-base text-gray-900">Full</span>
+            </label>
+          </div>
+          <p className="mt-3 text-sm text-gray-400 text-center">
             {mode === "test"
               ? "12 trials — for setup and piloting only"
               : "120 trials — real data collection"}
           </p>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-100 mb-2" />
-
         {/* In-person */}
-        <StartRow
-          label="In-person"
-          value={inPersonNum}
-          onChange={setInPersonNum}
-          onStart={() => start(parseInt(inPersonNum), mode)}
-          disabled={!numValid(inPersonNum)}
-        />
-
-        {/* Divider */}
-        <div className="border-t border-slate-100" />
+        <div className="mb-5">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+            In-person
+          </div>
+          <div className="flex gap-3">
+            <input
+              type="number"
+              min={1}
+              max={24}
+              placeholder="1–24"
+              value={inPersonNum}
+              onChange={(e) => setInPersonNum(e.target.value)}
+              className="w-24 px-4 py-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+            <button
+              onClick={() => start(parseInt(inPersonNum), mode)}
+              disabled={!numValid(inPersonNum)}
+              className="flex-1 py-3 bg-gray-900 text-white rounded text-base font-semibold hover:bg-gray-700 disabled:opacity-40 transition-colors"
+            >
+              Start in-person
+            </button>
+          </div>
+        </div>
 
         {/* Online */}
-        <StartRow
-          label="Online"
-          value={onlineNum}
-          onChange={setOnlineNum}
-          onStart={() => start(parseInt(onlineNum), mode)}
-          disabled={!numValid(onlineNum)}
-        />
+        <div className="mb-2">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
+            Online
+          </div>
+          <div className="flex gap-3">
+            <input
+              type="number"
+              min={1}
+              max={24}
+              placeholder="1–24"
+              value={onlineNum}
+              onChange={(e) => setOnlineNum(e.target.value)}
+              className="w-24 px-4 py-3 border border-gray-300 rounded text-base focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+            <button
+              onClick={() => start(parseInt(onlineNum), mode)}
+              disabled={!numValid(onlineNum)}
+              className="flex-1 py-3 bg-gray-900 text-white rounded text-base font-semibold hover:bg-gray-700 disabled:opacity-40 transition-colors"
+            >
+              Start online
+            </button>
+          </div>
+        </div>
 
         {error && (
-          <p className="mt-4 text-xs text-red-500 text-center">{error}</p>
+          <p className="mt-4 text-sm text-gray-900 font-semibold">{error}</p>
         )}
       </div>
     </div>

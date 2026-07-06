@@ -48,34 +48,44 @@ function logEvent(
 }
 
 
-function sliderHtml(stimulus: string): string {
+// Artwork is position:fixed so its viewport position is identical across
+// initial-rating, reveal, and re-rating phases regardless of jsPsych's
+// internal layout differences between HtmlSliderResponse / HtmlKeyboardResponse.
+const ARTWORK_TOP    = "16rem";   // distance from viewport top
+const ARTWORK_ZONE_H = "360px";    // height of the fixed artwork zone
+
+function artworkContainerHtml(trial: Trial): string {
+  const inner = trial.image_url
+    ? `<div style="width:580px;max-width:94vw;height:360px;border-radius:4px;
+                  display:flex;align-items:center;justify-content:center;">
+         <img src="${trial.image_url}" alt="${trial.title}"
+              style="width:100%;height:100%;object-fit:contain;border-radius:4px;display:block;">
+       </div>`
+    : `<div style="width:580px;max-width:94vw;height:360px;background:#f1f5f9;border:1px solid #e2e8f0;
+                  border-radius:4px;display:flex;flex-direction:column;align-items:center;
+                  justify-content:center;color:#94a3b8;">
+         <div style="font-size:2.5rem;margin-bottom:0.5rem;">🖼</div>
+         <div style="font-size:14px;">${trial.title}</div>
+         <div style="font-size:12px;margin-top:4px;">${trial.artist}, ${trial.year}</div>
+       </div>`;
   return `
-    <div style="max-width:50rem;margin:0 auto;text-align:center;">
-      ${stimulus}
-      <p style="font-size:1rem;color:#475569;margin-bottom:1rem;">
-        How much do you like this artwork?
-      </p>
+    <div style="position:fixed;top:${ARTWORK_TOP};left:50%;transform:translateX(-50%);
+                width:min(680px,94vw);height:${ARTWORK_ZONE_H};
+                display:flex;align-items:center;justify-content:center;
+                pointer-events:none;z-index:1;">
+      ${inner}
     </div>
+    <div style="height:calc(${ARTWORK_TOP} + ${ARTWORK_ZONE_H});"></div>
   `;
 }
 
-function artworkImageHtml(trial: Artwork): string {
-  const maxW = "600px";
-  // Viewport-relative max-height ensures the agent rating bar below is never cut off
-  const maxH = "min(380px, 38vh)";
-  const placeholderH = "min(280px, 34vh)";
-  if (trial.image_url) {
-    return `<img src="${trial.image_url}"
-                 alt="${trial.title}"
-                 style="max-width:${maxW};max-height:${maxH};object-fit:contain;border-radius:4px;margin:0 auto 0.75rem;display:block;">`;
-  }
+function ratingStimulus(trial: Trial): string {
   return `
-    <div style="width:${maxW};max-width:100%;height:${placeholderH};background:#f1f5f9;border:1px solid #e2e8f0;
-                border-radius:4px;display:flex;flex-direction:column;align-items:center;
-                justify-content:center;margin:0 auto 0.75rem;color:#94a3b8;font-size:13px;">
-      <div style="font-size:2rem;margin-bottom:0.5rem;">🖼</div>
-      <div>${trial.title}</div>
-      <div style="font-size:11px;margin-top:4px;">${trial.artist}, ${trial.year}</div>
+    <div style="max-width:54rem;margin:0 auto;text-align:center;">
+      ${artworkContainerHtml(trial)}
+      <p style="font-size:1.1rem;color:#475569;margin:0.25rem 0 0.75rem;">
+        How much do you like this artwork?
+      </p>
     </div>
   `;
 }
@@ -83,13 +93,13 @@ function artworkImageHtml(trial: Artwork): string {
 function avatarHtml(name: string, code: string): string {
   return `
     <div style="text-align:center;">
-      <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;
-                  margin:0 auto 0.5rem;border:2px solid #cbd5e1;background:#e2e8f0;">
+      <div style="width:210px;height:210px;border-radius:50%;overflow:hidden;
+                  margin:0 auto 0.6rem;border:2px solid #cbd5e1;background:#e2e8f0;">
         <img src="/avatars/${code}.png" alt="${name}"
              style="width:100%;height:100%;object-fit:cover;"
-             onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#94a3b8;\\'>👤</div>'">
+             onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;color:#94a3b8;\\'>👤</div>'">
       </div>
-      <div style="font-size:0.95rem;font-weight:600;color:#334155;">${name}</div>
+      <div style="font-size:1.05rem;font-weight:600;color:#334155;">${name}</div>
     </div>
   `;
 }
@@ -106,14 +116,16 @@ function agentPairRevealHtml(
     : [agent2, agent2Code, agent1, agent1Code];
 
   return `
-    <div style="display:flex;gap:3rem;justify-content:center;margin:1.25rem 0 1.5rem;">
-      ${avatarHtml(leftName, leftCode)}
-      ${avatarHtml(rightName, rightCode)}
-    </div>
-    <div style="text-align:center;font-size:1rem;color:#475569;">
-      The average of <strong>${leftName}</strong> and <strong>${rightName}</strong>'s rating is
-      <span style="font-size:2rem;font-weight:700;color:#1e293b;margin-left:0.3rem;">${avgRating}</span>
-      <span style="font-size:0.85rem;color:#94a3b8;"> / 100</span>
+    <div class="si-fade-in">
+      <div style="display:flex;gap:3.5rem;justify-content:center;margin:1rem 0 1.25rem;">
+        ${avatarHtml(leftName, leftCode)}
+        ${avatarHtml(rightName, rightCode)}
+      </div>
+      <div style="text-align:center;font-size:1.05rem;color:#475569;">
+        The average of <strong>${leftName}</strong> and <strong>${rightName}</strong>'s rating is
+        <span style="font-size:2.2rem;font-weight:700;color:#1e293b;margin-left:0.3rem;">${avgRating}</span>
+        <span style="font-size:0.9rem;color:#94a3b8;"> / 100</span>
+      </div>
     </div>
   `;
 }
@@ -122,7 +134,7 @@ function addSliderValueDisplay() {
   const slider = document.querySelector('input[type="range"]') as HTMLInputElement | null;
   if (!slider) return;
   const display = document.createElement('div');
-  display.style.cssText = 'text-align:center;font-size:2rem;font-weight:600;color:#1e293b;margin:0.5rem 0 0.25rem;min-height:2.5rem;';
+  display.style.cssText = 'text-align:center;font-size:2.5rem;font-weight:600;color:#1e293b;margin:1.25rem 0 0.25rem;min-height:3rem;';
   display.textContent = slider.value;
   slider.parentNode!.insertBefore(display, slider.nextSibling);
   slider.addEventListener('input', () => { display.textContent = slider.value; });
@@ -159,9 +171,22 @@ function addScreenOverlays(trialIndex: number, total: number, durationMs = 0, sh
   container.appendChild(timer);
 }
 
+// ── Response quality tracking ─────────────────────────────────────────────────
+
+type ResponseData = {
+  initialRatings: number[];
+  rerateRatings:  number[];
+  initialRTs:     number[];
+  rerateRTs:      number[];
+  taskStartMs:    number | null;
+};
+
+// Minimum ms a participant must view the artwork before submitting initial rating
+const MIN_VIEW_MS = 1000;
+
 // ── Trials (rate → reveal → re-rate → ITI) ───────────────────────────────────
 
-function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
+function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych, responseData: ResponseData) {
   const revealMs = ctx.revealDurationMs ?? 5000;
 
   return ctx.trials.flatMap((trial) => {
@@ -171,16 +196,33 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
 
     const initialRatingTrial = {
       type: HtmlSliderResponse,
-      stimulus: sliderHtml(artworkImageHtml(trial)),
+      stimulus: ratingStimulus(trial),
       labels: ["0<br>Not at all", "100<br>Extremely"],
       min: 0,
       max: 100,
       slider_start: 50,
-      require_movement: true,
       button_label: "Submit",
       on_load: () => {
         addSliderValueDisplay();
         addScreenOverlays(trial.trial_index, ctx.trials.length, 0, false);
+        // Submit locked until: MIN_VIEW_MS elapsed AND slider moved
+        const btn = document.querySelector('button.jspsych-btn') as HTMLButtonElement | null;
+        const slider = document.querySelector('input[type="range"]') as HTMLInputElement | null;
+        if (btn && slider) {
+          btn.disabled = true;
+          btn.style.cssText += ';opacity:0.4;cursor:not-allowed;';
+          let timeUp = false;
+          let moved  = false;
+          const tryEnable = () => {
+            if (timeUp && moved) {
+              btn.disabled = false;
+              btn.style.opacity = '';
+              btn.style.cursor  = '';
+            }
+          };
+          setTimeout(() => { timeUp = true; tryEnable(); }, MIN_VIEW_MS);
+          slider.addEventListener('input', () => { moved = true; tryEnable(); }, { once: true });
+        }
       },
       on_start: () => {
         artworkOnsetMs = performance.now();
@@ -188,6 +230,8 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
       },
       on_finish: async (data: { response: number; rt: number }) => {
         initialRatingValue = data.response;
+        responseData.initialRatings.push(data.response);
+        responseData.initialRTs.push(data.rt);
         logEvent(ctx, "initial_rating_response", {
           artwork_id: trial.artwork_id,
           rating: data.response,
@@ -208,11 +252,9 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
     const revealTrial = {
       type: HtmlKeyboardResponse,
       stimulus: `
-        <div style="position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-          <div style="max-width:50rem;width:100%;text-align:center;padding:0 1rem;">
-            ${artworkImageHtml(trial)}
-            ${agentPairRevealHtml(trial.agent1, trial.agent1_code, trial.agent2, trial.agent2_code, trial.avg_rating)}
-          </div>
+        <div style="max-width:54rem;margin:0 auto;text-align:center;">
+          ${artworkContainerHtml(trial)}
+          ${agentPairRevealHtml(trial.agent1, trial.agent1_code, trial.agent2, trial.agent2_code, trial.avg_rating)}
         </div>
       `,
       choices: "NO_KEYS" as const,
@@ -235,7 +277,7 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
 
     const reratingTrial = {
       type: HtmlSliderResponse,
-      stimulus: sliderHtml(artworkImageHtml(trial)),
+      stimulus: ratingStimulus(trial),
       labels: ["0<br>Not at all", "100<br>Extremely"],
       min: 0,
       max: 100,
@@ -270,6 +312,8 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
       },
       on_start: () => { rerateOnsetMs = performance.now(); },
       on_finish: async (data: { response: number; rt: number }) => {
+        responseData.rerateRatings.push(data.response);
+        responseData.rerateRTs.push(data.rt);
         logEvent(ctx, "rerate_response", {
           artwork_id: trial.artwork_id,
           rating: data.response,
@@ -310,9 +354,67 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych) {
 
 // ── Full Timeline Builder ─────────────────────────────────────────────────────
 
+function computeQualitySummary(d: ResponseData): Record<string, unknown> {
+  const n = d.initialRatings.length;
+  if (n === 0) return { n_trials: 0 };
+
+  const mean = d.initialRatings.reduce((a, b) => a + b, 0) / n;
+  const sd   = Math.sqrt(d.initialRatings.reduce((a, b) => a + (b - mean) ** 2, 0) / n);
+  const min  = Math.min(...d.initialRatings);
+  const max  = Math.max(...d.initialRatings);
+
+  const sortedRTs = [...d.initialRTs].sort((a, b) => a - b);
+  const medianRT  = sortedRTs[Math.floor(n / 2)];
+
+  const fastFrac        = d.initialRTs.filter(rt => rt < MIN_VIEW_MS + 200).length / n;
+  const signedDeltas    = d.rerateRatings.map((r, i) => r - d.initialRatings[i]);
+  const absDeltas       = signedDeltas.map(Math.abs);
+  const meanAbsDelta    = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length;
+  const nearZeroDeltaFrac = absDeltas.filter(d => d < 5).length / absDeltas.length;
+
+  // Extreme ratings: fraction of initial ratings at the floor (0) or ceiling (100)
+  const extremityFrac = d.initialRatings.filter(r => r === 0 || r === 100).length / n;
+
+  // Direction bias: of trials where the participant actually moved, what fraction went up?
+  const movedDeltas        = signedDeltas.filter(d => Math.abs(d) >= 5);
+  const positiveDeltaFrac  = movedDeltas.length > 0
+    ? movedDeltas.filter(d => d > 0).length / movedDeltas.length
+    : null;
+
+  const sessionDurationMs = d.taskStartMs != null
+    ? Math.round(performance.now() - d.taskStartMs)
+    : null;
+
+  const flagged = (
+    fastFrac > 0.3 ||
+    sd < 8 ||
+    nearZeroDeltaFrac > 0.7 ||
+    meanAbsDelta < 4 ||
+    extremityFrac > 0.3 ||
+    (positiveDeltaFrac != null && (positiveDeltaFrac > 0.85 || positiveDeltaFrac < 0.15))
+  );
+
+  return {
+    n_trials:             n,
+    initial_rating_mean:  Math.round(mean * 10) / 10,
+    initial_rating_sd:    Math.round(sd   * 10) / 10,
+    initial_rating_min:   min,
+    initial_rating_max:   max,
+    median_initial_rt_ms: Math.round(medianRT),
+    fast_trial_frac:      Math.round(fastFrac         * 100) / 100,
+    near_zero_delta_frac: Math.round(nearZeroDeltaFrac * 100) / 100,
+    mean_abs_delta:       Math.round(meanAbsDelta      * 10)  / 10,
+    extremity_frac:       Math.round(extremityFrac     * 100) / 100,
+    positive_delta_frac:  positiveDeltaFrac != null ? Math.round(positiveDeltaFrac * 100) / 100 : null,
+    session_duration_ms:  sessionDurationMs,
+    flagged,
+  };
+}
+
 export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
   const block = await createBlock(ctx.sessionId, ctx.token, 1);
-  const trials = buildTrials(ctx, block.block_id, _jsPsych);
+  const responseData: ResponseData = { initialRatings: [], rerateRatings: [], initialRTs: [], rerateRTs: [], taskStartMs: null };
+  const trials = buildTrials(ctx, block.block_id, _jsPsych, responseData);
 
   const instructions = {
     type: HtmlButtonResponse,
@@ -348,6 +450,7 @@ export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
       document.body.classList.remove("instructions-mode");
       logEvent(ctx, "instructions_dismissed");
       logEvent(ctx, "task_start");
+      responseData.taskStartMs = performance.now();
     },
   };
 
@@ -360,7 +463,10 @@ export async function buildTimeline(ctx: TaskContext, _jsPsych: JsPsych) {
       </div>
     `,
     choices: ["Finish"],
-    on_start: () => logEvent(ctx, "task_end"),
+    on_start: () => {
+      logEvent(ctx, "task_end");
+      logEvent(ctx, "response_quality_summary", computeQualitySummary(responseData));
+    },
     on_finish: () => logEvent(ctx, "timeline_complete"),
   };
 

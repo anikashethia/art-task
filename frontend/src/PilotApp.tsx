@@ -15,6 +15,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import TimelineRunner from "./components/TimelineRunner";
+import EnvironmentGate from "./components/EnvironmentGate";
 import { createSession, completeSession } from "./api";
 import type { TaskContext } from "./timeline";
 
@@ -81,7 +82,11 @@ export default function PilotApp() {
   }
 
   if (phase.name === "running") {
-    return <TimelineRunner ctx={phase.ctx} onComplete={handleComplete} />;
+    return (
+      <EnvironmentGate sessionId={phase.ctx.sessionId} token={phase.ctx.token}>
+        <TimelineRunner ctx={phase.ctx} onComplete={handleComplete} />
+      </EnvironmentGate>
+    );
   }
 
   // Complete — redirect to Prolific
