@@ -27,10 +27,13 @@ CONDITION_TYPES = ["friendly", "neutral", "friendly_control", "neutral_control"]
 N_CONDITIONS    = len(CONDITION_TYPES)
 
 # Offset design constants
-OFFSET_N      = 30   # offsets per condition (= artworks per condition in full mode)
-OFFSET_MAG_LO = 20
-OFFSET_MAG_HI = 35
-OFFSET_N_POS  = 15   # exactly half positive, half negative
+OFFSET_N         = 30   # offsets per condition (= artworks per condition in full mode)
+OFFSET_MAG_LO    = 20
+OFFSET_MAG_HI    = 35
+OFFSET_N_POS     = 15   # exactly half positive, half negative
+CLOSE_N          = 3    # per condition: trials where avg ≈ initial rating
+CLOSE_MAG_LO     = 1
+CLOSE_MAG_HI     = 10
 
 # Avatar dicts used in dev mode (config 1 values)
 DEFAULT_PAIRS: dict[str, tuple[dict, dict]] = {
@@ -81,9 +84,14 @@ def get_pairs_for_config(config_index: int) -> dict[str, tuple[dict, dict]]:
 
 def build_base_offsets(participant_index: int) -> list[tuple[int, int]]:
     """30 (magnitude, sign) pairs seeded by participant_index.
-    Exactly OFFSET_N_POS positive and OFFSET_N_POS negative entries."""
+    Exactly OFFSET_N_POS positive and OFFSET_N_POS negative entries.
+    CLOSE_N of the 30 use small magnitudes (CLOSE_MAG_LO–CLOSE_MAG_HI);
+    the rest use large magnitudes (OFFSET_MAG_LO–OFFSET_MAG_HI)."""
     rng = random.Random(participant_index)
-    magnitudes = [rng.randint(OFFSET_MAG_LO, OFFSET_MAG_HI) for _ in range(OFFSET_N)]
+    n_large = OFFSET_N - CLOSE_N
+    large_mags = [rng.randint(OFFSET_MAG_LO, OFFSET_MAG_HI) for _ in range(n_large)]
+    close_mags = [rng.randint(CLOSE_MAG_LO, CLOSE_MAG_HI) for _ in range(CLOSE_N)]
+    magnitudes = large_mags + close_mags
     signs = [1] * OFFSET_N_POS + [-1] * (OFFSET_N - OFFSET_N_POS)
     rng.shuffle(signs)
     return list(zip(magnitudes, signs))
