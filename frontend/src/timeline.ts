@@ -239,10 +239,10 @@ function buildTrials(ctx: TaskContext, blockId: string, _jsPsych: JsPsych, respo
         // Compute participant-relative avg_rating with boundary-flip logic
         const mag  = trial.offset_magnitude;
         let   sign = trial.offset_sign;
-        const flip = (sign === -1 && data.response < mag)
-                  || (sign ===  1 && data.response > 100 - mag);
+        const flip = (sign === -1 && data.response - mag < 10)
+                  || (sign ===  1 && data.response + mag > 90);
         if (flip) sign = -sign;
-        computedAvgRating  = Math.max(0, Math.min(100, Math.round(data.response + sign * mag)));
+        computedAvgRating  = Math.max(10, Math.min(90, Math.round(data.response + sign * mag)));
         deliveredSign      = sign;
         offsetSignFlipped  = flip;
 

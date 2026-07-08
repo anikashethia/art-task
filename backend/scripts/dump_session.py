@@ -119,7 +119,7 @@ def run_verify(rows: list[dict]) -> None:
     for r in rows:
         if None in (r["initial_rating"], r["offset_sign"], r["offset_magnitude"], r["avg_rating"]):
             continue
-        expected = round(clip(r["initial_rating"] + r["offset_sign"] * r["offset_magnitude"]))
+        expected = round(max(10.0, min(90.0, r["initial_rating"] + r["offset_sign"] * r["offset_magnitude"])))
         if abs(expected - r["avg_rating"]) > 0.5:
             mismatches.append({**r, "expected": expected})
     rows_with_data = [r for r in rows if None not in (r["initial_rating"], r["offset_sign"], r["offset_magnitude"], r["avg_rating"])]

@@ -234,7 +234,7 @@ def submit_rating(
             .first()
         )
         if init_row is not None and init_row.rating is not None:
-            expected = max(0.0, min(100.0, round(init_row.rating + body.offset_sign * body.offset_magnitude)))
+            expected = max(10.0, min(90.0, round(init_row.rating + body.offset_sign * body.offset_magnitude)))
             if abs(expected - body.avg_rating) > 0.5:
                 logging.warning(
                     "avg_rating mismatch — participant_id=%s trial_index=%s artwork_id=%s "
